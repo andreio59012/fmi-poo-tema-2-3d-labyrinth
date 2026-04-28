@@ -1,7 +1,6 @@
 #pragma once
 #include "collectible_counter_component.h"
 #include "player_component.h"
-#include <map>
 
 class CollectibleComponent : public Component
 {
@@ -17,13 +16,19 @@ public:
 		const PositionComponent* player_position_component_,
 		CollectibleCounterComponent* counter_component_
 	) :
+		Component(),
 		minimum_distance(minimum_distance_),
 		player_position_component(player_position_component_),
 		my_position_component(nullptr),
 		counter_component(counter_component_)
 	{}
 
-	std::string get_type_name() const override { return "Collectible"; }
+	[[nodiscard]] Component* clone() const override {
+		return new CollectibleComponent(minimum_distance, player_position_component, counter_component);
+	}
+
+	[[nodiscard]] std::string get_type_name() const override { return "Collectible"; }
+	[[nodiscard]] char get_map_symbol() const override { return 'K'; }
 
 	void ready(const Scene&) override {
 		my_position_component = get_entity()->get_component_of_type<PositionComponent*>();

@@ -11,26 +11,38 @@ RenderInfo::RenderInfo(const vec2i& screen_size_) :
 	camera_fov(0.0f),
 	screen_size(screen_size_)
 {
+	const int sx = screen_size.x;
+	const int sy = screen_size.y;
+
 	depth_buffer = new float[(screen_size.x)];
 	ascii_buffer = new char[(screen_size.x * screen_size.y)];
+
+	for (int i = 0; i < sx; ++i)
+		depth_buffer[i] = 0.0f;
+
 	labels = {};
 
-	for (int x = 0; x < screen_size.x; ++x)
-		for (int y = 0; y < screen_size.y; ++y)
-			ascii_buffer[y * screen_size.x + x] = ' ';
+	for (int x = 0; x < sx; ++x)
+		for (int y = 0; y < sy; ++y)
+			ascii_buffer[y * sx + x] = ' ';
 
-	for (int x = 0; x < screen_size.x; ++x) {
-		ascii_buffer[0 * screen_size.x + x] = '-';
-		ascii_buffer[(screen_size.y - 1) * screen_size.x + x] = '-';
+	for (int x = 0; x < sx; ++x) {
+		ascii_buffer[0 * sx + x] = '-';
+		ascii_buffer[(sy - 1) * sx + x] = '-';
 	}
 
-	for (int y = 0; y < screen_size.y; ++y) {
-		ascii_buffer[y * screen_size.x + 0] = '|';
-		ascii_buffer[y * screen_size.x + (screen_size.x - 2)] = '|';
-		ascii_buffer[y * screen_size.x + (screen_size.x - 1)] = '\n';
+	for (int y = 0; y < sy; ++y) {
+		ascii_buffer[y * sx + 0] = '|';
+		ascii_buffer[y * sx + (sx - 2)] = '|';
+		ascii_buffer[y * sx + (sx - 1)] = '\n';
 	}
 
-	ascii_buffer[screen_size.x * screen_size.y - 1] = 0;
+	ascii_buffer[sx * sy - 1] = 0;
+}
+
+RenderInfo::~RenderInfo() {
+	delete[] depth_buffer;
+	delete[] ascii_buffer;
 }
 
 Scene::Scene(RenderInfo* render_info_)

@@ -21,7 +21,11 @@ private:
     std::map<std::string, std::string> labels;
 
 public:
-    RenderInfo(const vec2i& screen_size_);
+    explicit RenderInfo(const vec2i& screen_size_);
+    ~RenderInfo();
+
+    RenderInfo(const RenderInfo&) = delete;
+    RenderInfo& operator=(const RenderInfo&) = delete;
 
     void set_camera(const vec2 camera_position_, const float camera_angle_, const float camera_fov_) {
         camera_position = camera_position_;
@@ -30,7 +34,8 @@ public:
     }
 
     void set_depth_pixel(const int x, const float depth) {
-        depth_buffer[x] = depth;
+        if(x > 0 && x < screen_size.x)
+            depth_buffer[x] = depth;
     }
 
     void set_ascii_pixel(const int x, const int y, const char c) {
@@ -42,13 +47,16 @@ public:
         labels[key] = value;
     }
 
-    void output_labels_and_ascii() {
+    void clear_console() {
 #ifdef _WIN32
         std::system("CLS");
 #else
         std::system("clear");
 #endif
+    }
 
+    void output_labels_and_ascii() {
+        clear_console();
         std::cout << ascii_buffer;
 
         for (std::pair<std::string, std::string> label : labels) {
@@ -56,11 +64,16 @@ public:
         }
     }
 
-    vec2 get_camera_position() const { return camera_position; }
-    float get_camera_angle() const { return camera_angle; }
-    float get_camera_fov() const { return camera_fov; }
-    vec2i get_screen_size() const { return screen_size; }
-    float get_depth_pixel(const int x) { return depth_buffer[x]; }
+    [[nodiscard]] vec2 get_camera_position() const { return camera_position; }
+    [[nodiscard]] float get_camera_angle() const { return camera_angle; }
+    [[nodiscard]] float get_camera_fov() const { return camera_fov; }
+    [[nodiscard]] vec2i get_screen_size() const { return screen_size; }
+
+    [[nodiscard]] float get_depth_pixel(const int x) { 
+        if (x <= 0 || x >= screen_size.x)
+            return 0.0f;
+        return depth_buffer[x]; 
+    }
 };
 
 class Scene {
@@ -70,14 +83,17 @@ private:
     RenderInfo* render_info;
 
 public:
-    Scene(RenderInfo* render_info_);
+    explicit Scene(RenderInfo* render_info_);
     ~Scene();
+
+    Scene(const Scene&) = delete;
+    Scene& operator=(const Scene&) = delete;
 
     void ready();
     void process();
     void draw();
 
-    RenderInfo* get_render_info() const {
+    [[nodiscard]] RenderInfo* get_render_info() const {
         return render_info;
     }
 

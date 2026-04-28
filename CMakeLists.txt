@@ -51,7 +51,7 @@ include(cmake/CopyHelper.cmake)
 # NOTE: update executable name in .github/workflows/cmake.yml:25 when changing name here
 add_executable(${MAIN_EXECUTABLE_NAME}
     main.cpp
-         "include/level_component.h"   "include/player_component.h"   "include/extra_math.h" "include/entity.cpp"  "include/billboard_component.h"   "include/component.h"    "include/entity.h" "include/scene.h" "include/scene.cpp" "include/collectible_counter_component.h" "include/collectible_component.h" "include/exit_door_component.h")
+         "include/level_component.h"   "include/player_component.h"   "include/extra_math.h" "include/entity.cpp"  "include/billboard_component.h"   "include/component.h"    "include/entity.h" "include/scene.h" "include/scene.cpp" "include/collectible_counter_component.h" "include/collectible_component.h" "include/exit_door_component.h" "include/exceptions.h" "include/input_utils.h" "include/component.cpp")
 target_sources(${MAIN_EXECUTABLE_NAME}
     PRIVATE
         

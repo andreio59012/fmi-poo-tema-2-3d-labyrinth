@@ -8,19 +8,16 @@ private:
 	float angle;
 
 public:
-	RotationComponent(const float angle_ = 0.0f) : angle(angle_) {}
+	explicit RotationComponent(const float angle_ = 0.0f) : Component(), angle(angle_) {}
 
-	std::string get_type_name() const override { return "Rotation"; }
+	[[nodiscard]] Component* clone() const override { return new RotationComponent(angle); }
 
-	float get_angle() const {
-		return angle;
-	}
+	[[nodiscard]] std::string get_type_name() const override { return "Rotation"; }
+	[[nodiscard]] float get_angle() const { return angle; }
 
-	void set_angle(const float angle_) {
-		angle = angle_;
-	}
+	void set_angle(const float angle_) { angle = angle_; }
 
-	vec2 get_forward_vector() const {
+	[[nodiscard]] vec2 get_forward_vector() const {
 		return vec2(
 			std::sinf(angle),
 			std::cosf(angle)

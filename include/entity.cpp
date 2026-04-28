@@ -5,9 +5,41 @@ Entity::~Entity() {
 		delete c;
 }
 
+Entity::Entity(const Entity& other) {
+	components.reserve(other.components.size());
+
+	for (const Component* c : other.components) {
+		Component* cloned = c->clone();
+		cloned->set_entity(this);
+		components.push_back(cloned);
+	}
+}
+
+void swap(Entity& a, Entity& b) noexcept {
+	std::swap(a.components, b.components);
+
+	for (Component* c : a.components)
+		c->set_enabled(&a);
+	for (Component* c : b.components)
+		c->set_entity(&b);
+}
+
+Entity& Entity::operator=(Entity other) {
+	swap(*this, other);
+	return *this;
+}
+
 void Entity::add_component(Component* component) {
 	component->set_entity(this);
 	components.push_back(component);
+}
+
+char Entity::get_map_symbol() const {
+	for (const Component* c : components) {
+		const char sym = c->get_map_symbol();
+		if (sym != ' ') return sym;
+	}
+	return ' ';
 }
 
 Component* Entity::get_component_of_type_name(const std::string& type_name, bool only_enabled) const {
