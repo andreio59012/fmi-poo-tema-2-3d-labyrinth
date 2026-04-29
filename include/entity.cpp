@@ -19,7 +19,7 @@ void swap(Entity& a, Entity& b) noexcept {
 	std::swap(a.components, b.components);
 
 	for (Component* c : a.components)
-		c->set_enabled(&a);
+		c->set_entity(&a);
 	for (Component* c : b.components)
 		c->set_entity(&b);
 }

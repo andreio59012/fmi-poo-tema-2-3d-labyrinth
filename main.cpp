@@ -55,7 +55,7 @@ int main()
 		Entity* player_entity = new Entity();
 		player_entity->add_component(new PositionComponent(vec2(1.5f, 1.5f)));
 		player_entity->add_component(new RotationComponent());
-		player_entity->add_component(new PlayerComponent(level_entity->get_component_of_type<LevelComponent*>(), 1.5f));
+		player_entity->add_component(new PlayerComponent(static_cast<LevelComponent*>(level_entity->get_component_of_type_name("Level")), 1.5f));
 		scene->add_entity(player_entity);
 
 		// Counter
@@ -70,7 +70,7 @@ int main()
 			'\\','-','/',' ',' ',' ',' ',' ',
 		};
 
-		vec2 collectible_pos[collectible_amount] = {
+		const vec2 collectible_pos[collectible_amount] = {
 			vec2(24.5f, 22.5f),
 			vec2(12.5f, 22.5f),
 			vec2(9.5f, 19.5f),
@@ -125,6 +125,7 @@ int main()
 	}
 	catch (const LabyrinthException& e) {
 		std::cout << "[Labyrinth error] " << e.what() << '\n';
+		std::cout << "Extra info: Component count is " << Component::get_instance_count() << '\n';
 		return 1;
 	}
 	catch (const std::exception& e) {

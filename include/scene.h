@@ -43,7 +43,7 @@ public:
             ascii_buffer[y * screen_size.x + x] = c;
     }
 
-    void set_label(const std::string key, const std::string value) {
+    void set_label(const std::string& key, const std::string& value) {
         labels[key] = value;
     }
 

@@ -1,4 +1,3 @@
-#pragma once
 #include "scene.h"
 #include "entity.h"
 #include <chrono>

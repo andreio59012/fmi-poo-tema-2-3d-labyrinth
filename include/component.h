@@ -22,11 +22,12 @@ public:
 	[[nodiscard]] virtual Component* clone() const = 0;
 	[[nodiscard]] virtual std::string get_type_name() const = 0;
 	[[nodiscard]] virtual char get_map_symbol() const;
+
 	[[nodiscard]] bool get_enabled() const { return enabled; }
-	[[nodiscard]] void set_enabled(const bool enabled_) { enabled = enabled_; }
+	void set_enabled(const bool enabled_) { enabled = enabled_; }
 
 	[[nodiscard]] Entity* get_entity() const { return entity; }
-	[[nodiscard]] void set_entity(Entity* entity_) { entity = entity_; }
+	void set_entity(Entity* entity_) { entity = entity_; }
 
 	[[nodiscard]] static int get_instance_count() { return instance_count; }
 

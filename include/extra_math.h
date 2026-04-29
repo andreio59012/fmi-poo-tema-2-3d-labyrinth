@@ -9,7 +9,7 @@ struct vec2i;
 struct vec2 {
     float x, y;
 
-    vec2(const float x_ = 0.0f, const float y_ = 0.0f) : x(x_), y(y_) {}
+    explicit vec2(const float x_ = 0.0f, const float y_ = 0.0f) : x(x_), y(y_) {}
     explicit vec2(const vec2i& src);
 
     vec2& operator+=(const vec2& a) { x += a.x; y += a.y; return *this; }
@@ -29,7 +29,7 @@ struct vec2 {
 struct vec2i {
     int x, y;
 
-    vec2i(const int x_ = 0, const int y_ = 0) : x(x_), y(y_) {}
+    explicit vec2i(const int x_ = 0, const int y_ = 0) : x(x_), y(y_) {}
     explicit vec2i(const vec2& src);
 
     vec2i& operator+=(const vec2i& a) { x += a.x; y += a.y; return *this; }

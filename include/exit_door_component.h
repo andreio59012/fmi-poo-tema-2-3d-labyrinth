@@ -8,7 +8,6 @@ private:
 	const PositionComponent* player_position_component;
 	PositionComponent* my_position_component;
 	CollectibleCounterComponent* counter_component;
-	bool finished;
 
 public:
 	ExitDoorComponent(
@@ -20,8 +19,7 @@ public:
 		minimum_distance(minimum_distance_),
 		player_position_component(player_position_component_),
 		my_position_component(nullptr),
-		counter_component(counter_component_),
-		finished(false)
+		counter_component(counter_component_)
 	{}
 
 	[[nodiscard]] Component* clone() const override {
