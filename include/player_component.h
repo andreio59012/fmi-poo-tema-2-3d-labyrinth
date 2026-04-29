@@ -107,6 +107,6 @@ public:
 
 	void draw(RenderInfo& render_info) override {
 		render_info.set_label("Move/Turn", "WASD");
-		render_info.set_label("Exit Game", "Q");
+		render_info.set_label("Exit Game", "X");
 	}
 };
