@@ -28,11 +28,14 @@ public:
 
 	[[nodiscard]] char get_map_symbol() const override { return 'D'; }
 	[[nodiscard]] std::string get_type_name() const override { return "ExitDoor"; }
-	[[nodiscard]] bool get_finished() const {
-		return my_position_component->get_position().get_dist_to(player_position_component->get_position()) <= minimum_distance && counter_component->get_finished();
-	}
 
 	void ready(const Scene&) override {
 		my_position_component = get_entity()->get_component_of_type<PositionComponent*>();
+	}
+
+	bool process(Scene& scene) override {
+		if (my_position_component->get_position().get_dist_to(player_position_component->get_position()) <= minimum_distance && counter_component->get_finished())
+			scene.set_game_state(GameState::WON);
+		return false;
 	}
 };

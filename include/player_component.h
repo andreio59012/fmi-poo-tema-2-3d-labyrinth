@@ -46,7 +46,7 @@ public:
 		rotation_component = get_entity()->get_component_of_type<RotationComponent*>();
 	}
 
-	bool process(const Scene& scene) override {
+	bool process(Scene& scene) override {
 		bool block_thread = false;
 
 		if (state == PlayerState::IDLE) {
@@ -78,6 +78,10 @@ public:
 						state = PlayerState::MOVE;
 					break;
 
+				case 'x':
+					scene.set_game_state(GameState::QUIT);
+					return false;
+
 				default: break;
 			}
 		}
@@ -103,5 +107,6 @@ public:
 
 	void draw(RenderInfo& render_info) override {
 		render_info.set_label("Move/Turn", "WASD");
+		render_info.set_label("Exit Game", "Q");
 	}
 };

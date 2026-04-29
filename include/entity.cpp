@@ -54,7 +54,7 @@ void Entity::ready(const Scene& render_info) {
 		c->ready(render_info);
 }
 
-bool Entity::process(const Scene& scene) {
+bool Entity::process(Scene& scene) {
 	bool block_thread = false;
 	for (Component* c : components)
 		if (c->get_enabled() && c->process(scene))

@@ -34,7 +34,7 @@ public:
 		my_position_component = get_entity()->get_component_of_type<PositionComponent*>();
 	}
 
-	bool process(const Scene&) override {
+	bool process(Scene&) override {
 		float distance = my_position_component->get_position().get_dist_to(player_position_component->get_position());
 
 		if (distance <= minimum_distance)

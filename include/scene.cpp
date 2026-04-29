@@ -45,7 +45,7 @@ RenderInfo::~RenderInfo() {
 }
 
 Scene::Scene(RenderInfo* render_info_)
-	: entities(), render_info(render_info_) {}
+	: entities(), render_info(render_info_), game_state(GameState::WAITING) {}
 
 Scene::~Scene() {
 	for (Entity* e : entities)
@@ -55,6 +55,8 @@ Scene::~Scene() {
 }
 
 void Scene::ready() {
+	set_game_state(GameState::RUNNING);
+
 	for (Entity* e : entities)
 		e->ready(*this);
 }

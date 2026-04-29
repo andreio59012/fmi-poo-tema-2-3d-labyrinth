@@ -5,6 +5,8 @@
 #include <vector>
 #include "extra_math.h"
 
+enum class GameState : int { WAITING = 0, RUNNING, WON, QUIT };
+
 class Entity;
 
 class RenderInfo {
@@ -81,6 +83,7 @@ class Scene {
 private:
     std::vector<Entity*> entities;
     RenderInfo* render_info;
+    GameState game_state;
 
 public:
     explicit Scene(RenderInfo* render_info_);
@@ -99,5 +102,13 @@ public:
 
     void add_entity(Entity* entity) {
         entities.push_back(entity);
+    }
+
+    [[nodiscard]] GameState get_game_state() const {
+        return game_state;
+    }
+
+    void set_game_state(const GameState game_state_) {
+        game_state = game_state_;
     }
 };

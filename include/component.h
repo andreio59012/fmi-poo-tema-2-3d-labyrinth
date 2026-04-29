@@ -31,7 +31,7 @@ public:
 
 	[[nodiscard]] static int get_instance_count() { return instance_count; }
 
-	virtual bool process(const Scene&) { return false; }
 	virtual void ready(const Scene&) {}
+	virtual bool process(Scene&) { return false; }
 	virtual void draw(RenderInfo&) {}
 };

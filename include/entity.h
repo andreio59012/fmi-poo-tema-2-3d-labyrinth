@@ -33,6 +33,6 @@ public:
     [[nodiscard]] Component* get_component_of_type_name(const std::string& type_name, bool only_enabled = false) const;
 
     void ready(const Scene&);
-    bool process(const Scene&);
+    bool process(Scene&);
     void draw(RenderInfo&);
 };

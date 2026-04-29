@@ -110,13 +110,19 @@ int main()
 		scene->ready();
 		scene->draw();
 
-		while (!door_component->get_finished())
+		while (scene->get_game_state() == GameState::RUNNING)
 		{
 			scene->process();
 			scene->draw();
 		}
 
 		scene->get_render_info()->clear_console();
+
+		if (scene->get_game_state() == GameState::WON) 
+		{
+			std::cout << "Congratulations! You escaped the Labyrinth!\n\nPress the [Enter] key to exit the game.\n";
+			std::cin.get();
+		}
 
 		delete scene;
 	}
@@ -129,9 +135,6 @@ int main()
 		std::cout << "[Error] " << e.what() << '\n';
 		return 1;
 	}
-
-	std::cout << "Congratulations! You escaped the Labyrinth!\n\nPress the [Enter] key to exit the game.\n";
-	std::cin.get();
 
 	return 0;
 }
