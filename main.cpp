@@ -11,8 +11,11 @@ int main()
 {
 	const int collectible_amount = 10;
 
-	std::cout << "You are trapped in a Labyrinth.\nThere is an exit door, but it is locked.\nYou must find and collect " << collectible_amount << " keys to unlock it.\n\nPress the [Enter] key to begin the game.\n";
-	std::cin.get();
+	std::cout << "You are trapped in a Labyrinth.\nThere is an exit door, but it is locked.\nYou must find and collect " << collectible_amount << " keys to unlock it.\n\nEnter (0) to start the game, or (1) to quit.\n";
+	int x; std::cin >> x;
+
+	if (x != 0)
+		return 0;
 
 	try {
 		Scene* scene = new Scene(new RenderInfo(vec2i(200, 70)));
