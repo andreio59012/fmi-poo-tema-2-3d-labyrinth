@@ -41,6 +41,7 @@ public:
 		{
 			counter_component->increment_counter();
 			my_position_component->set_position(vec2(999.0, 999.0));
+			get_entity()->get_component_of_type<BillboardComponent*>()->set_enabled(false);
 		}
 
 		return false;

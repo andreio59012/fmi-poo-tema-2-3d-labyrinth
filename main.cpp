@@ -17,8 +17,6 @@ int main()
 	try {
 		Scene* scene = new Scene(new RenderInfo(vec2i(200, 70)));
 
-#pragma region Create Entities
-
 		// Level
 		const bool level_tiles[] = {
 			1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
@@ -107,9 +105,8 @@ int main()
 		door_entity->add_component(new BillboardComponent(vec2i(8, 6), door_sprite, vec2(4.0f, 4.5f)));
 		door_entity->add_component(door_component);
 		scene->add_entity(door_entity);
-
-#pragma endregion
-
+		
+		// Game Loop
 		scene->ready();
 		scene->draw();
 

@@ -16,9 +16,6 @@ public:
 
 	[[nodiscard]] std::string get_type_name() const override { return "Position"; }
 	[[nodiscard]] vec2 get_position() const { return position; }
-	[[nodiscard]] vec2i get_position_tile() const {
-		return vec2i(static_cast<int>(position.x), static_cast<int>(position.y));
-	}
 
 	void set_position(const vec2 position_) { position = position_; }
 

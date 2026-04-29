@@ -15,13 +15,13 @@ public:
 	[[nodiscard]] std::string get_type_name() const override { return "Rotation"; }
 	[[nodiscard]] float get_angle() const { return angle; }
 
-	// unused
+	// unused!
 	// void set_angle(const float angle_) { angle = angle_; }
 
 	[[nodiscard]] vec2 get_forward_vector() const {
 		return vec2(
-			std::sinf(angle),
-			std::cosf(angle)
+			std::sin(angle),
+			std::cos(angle)
 		);
 	}
 

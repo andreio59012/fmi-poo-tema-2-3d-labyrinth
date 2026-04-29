@@ -74,7 +74,7 @@ public:
 			float ray_dist = 0.0f; 
 			TileDir tile_dir = TileDir::UP;
 
-			const vec2 ray_dir = vec2{ std::sinf(ray_angle), std::cosf(ray_angle) };
+			const vec2 ray_dir = vec2{ std::sin(ray_angle), std::cos(ray_angle) };
 			vec2i ray_position = vec2i(), last_ray_position = vec2i();
 
 			do
