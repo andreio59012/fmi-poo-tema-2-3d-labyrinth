@@ -1,31 +1,30 @@
 # Labyrinth
 
-"Labyrinth" is a simple terminal-based game written in C++ where the player must navigate a maze, collect 10 keys, and escape through the locked exit door.
+"Labyrinth" is a simple terminal-based game written in C++ where the player must navigate a maze, collect 10 keys, and escape through the exit door.
 
-The renderer is a basic "raycaster", inspired by classic games such as Wolfenstein 3D.
-For each column of the terminal screen, a ray is cast from the camera position into the maze (which is represented as a two-dimensional array of booleans).
-The distance between the camera and the wall hit by the ray determines how tall that column should be.
-Edges between surfaces are detected by comparing adjacent ray directions and are drawn with the corresponding ASCII characters.
+The renderer is a "raycaster", inspired by classic games such as Wolfenstein 3D.
+For each column of the terminal screen, a ray is cast from the camera into the maze (which is represented as a two-dimensional array of booleans).
+The distance between the camera and the wall hit by the ray is used to figure out how tall said column should be.
+Adjacent ray directions are compared to detect edges between walls, so as to draw them with the corresponding ASCII characters.
 Collectibles and the exit door are rendered as billboards (sprites that always face the camera), also using ASCII characters.
 
-The project is built around an entity-component system, inspired by the way the Unity Game Engine works.
-A Scene owns a list of Entity objects, and each Entity owns a list of Component objects.
-The Component base class defines the interface for all game logic and rendering, using a virtual interface pattern.
-Every component also implements clone() for correct deep copying of entities.
+The project uses entity-component system, inspired by the way the Unity Game Engine works.
+A Scene has a list of Entity objects, and an Entity has a list of Component objects.
+The Component base class has virtual functions that run when the game starts, every frame while the game is running. and when the game is drawing to the terminal.
 
 The component types are:
-- PositionComponent and RotationComponent for transform data;
-- LevelComponent for the tile map and raycasting;
-- BillboardComponent for sprite rendering;
-- PlayerComponent for input and camera control;
-- CollectibleComponent for pickup logic;
-- CollectibleCounterComponent for tracking collected keys;
-- ExitDoorComoponent for win detection.
+- PositionComponent and RotationComponent: stores transform data;
+- LevelComponent: stores the tile map and does the raycasting/drawing;
+- BillboardComponent: stores sprites and does the billboard sprite rendering;
+- PlayerComponent: player input and camera logic;
+- CollectibleComponent: pickup logic;
+- CollectibleCounterComponent: tracks collected keys;
+- ExitDoorComoponent: win detection;
 
-Error handling is based on a hierarchy with the base class "LabyrinthException" and specific subclasses for various types of errors (InvalidLevelException, InvalidSpriteException, OutOfBoundsExceptions).
+Error handling is based on a hierarchy with the base class "LabyrinthException" and specific subclasses for various types of project-specific errors (InvalidLevelException, InvalidSpriteException, OutOfBoundsExceptions).
 These are thrown in constructors and caught in main.cpp.
 
-Rendering state (RenderInfo) stores the depth buffer, the ASCII character buffer, and camera parameters. The depth buffer is used to cut billboards hidden behind walls.
+Rendering state (RenderInfo) stores the depth buffer, the ASCII character buffer, and camera parameters. The depth buffer is used to avoid rendering billboards hidden behind walls.
 
 ## License
 
